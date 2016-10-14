@@ -7,6 +7,8 @@ void io_store_eflags(int eflags);
 void init_palette(void);
 void set_palette(int start, int end, unsigned char *rgb);
 void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, int x1, int y1);
+void init_screen(char *vram,int xsize,int ysize);
+void putfront8(char *vram,int xsize,int x,int y,char c,char *font);
 
 #define COL8_000000		0
 #define COL8_FF0000		1
@@ -24,16 +26,68 @@ void boxfill8(unsigned char *vram, int xsize, unsigned char c, int x0, int y0, i
 #define COL8_840084		13
 #define COL8_008484		14
 #define COL8_848484		15
-
+struct BOOTINFO{
+	char cyls,leds,vmode,reserve;
+	short scrnx,scrny;
+	char *vram;
+};
+static char fron_A[16] = {
+	0x00,0x18,0x18,0x18,0x18,0x24,0x24,0x24,
+	0x24,0x7e,0x42,0x42,0x42,0xe7,0x00,0x00
+};
 void HariMain(void)
 {
 	char *vram; /* pという変数は、BYTE [...]用の番地 */
+	int xsize,ysize;
+	struct BOOTINFO *binfo;
 
 	init_palette(); /* パレットを設定 */
-	int xsize,ysize;
-	vram = (char *) 0xa0000; /* 番地を代入 */
-	xsize = 320;
-	ysize = 200;
+	binfo = (struct BOOTINFO *) 0x0ff0;
+	
+	xsize =(*binfo).scrnx;
+	ysize =(*binfo).scrny;
+	vram = (*binfo).vram; /* 番地を代入 */
+	putfront8(vram,xsize,5,10,13,fron_A);
+//	init_screen(binfo->vram,binfo->scrnx,binfo->scrny);
+	for (;;) {
+		io_hlt();
+	}
+}
+void putfront8(char *vram,int xsize,int x,int y,char c,char *font){
+	int i;
+	char *p,d;
+
+	for(i = 0;i<16;i++){
+		p = vram+(y+i)*xsize+x;
+		d = font[i];
+		if((d&0x80)!=0){
+			p[0] = c;
+		}
+		if((d&0x40)!=0){
+			p[1] = c;
+		}
+		if((d&0x20)!=0){
+			p[2] = c;
+		}
+		if((d&0x10)!=0){
+			p[3] = c;
+		}
+		if((d&0x08)!=0){
+			p[4] = c;
+		}
+		if((d&0x04)!=0){
+			p[5] = c;
+		}
+		if((d&0x02)!=0){
+			p[6] = c;
+		}
+		if((d&0x01)!=0){
+			p[7] = c;
+		}
+	}	
+	return ;
+}
+void init_screen(char *vram,int xsize,int ysize){
 	boxfill8(vram, xsize, COL8_008484,  0,  		0, 			xsize - 1, ysize -29);
 	boxfill8(vram, xsize, COL8_C6C6C6,  0,  		ysize - 28, xsize - 1, ysize - 28);
 	boxfill8(vram, xsize, COL8_FFFFFF,  0,  		ysize - 27, xsize - 1, ysize - 27);
@@ -50,12 +104,7 @@ void HariMain(void)
 	boxfill8(vram, xsize, COL8_848484, xsize - 47,  ysize - 23, xsize - 47, ysize -  4);
 	boxfill8(vram, xsize, COL8_FFFFFF, xsize - 47,  ysize - 3, 	xsize - 4, 	ysize -  3);
 	boxfill8(vram, xsize, COL8_FFFFFF, xsize - 3,   ysize - 24, xsize - 3, 	ysize -  3);
-
-	for (;;) {
-		io_hlt();
-	}
 }
-
 void init_palette(void)
 {
 	static unsigned char table_rgb[16 * 3] = {
