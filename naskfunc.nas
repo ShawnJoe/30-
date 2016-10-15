@@ -1,13 +1,13 @@
 ; naskfunc
 ; TAB=4
 
-[FORMAT "WCOFF"]				; ﾆ棚ﾆ置ﾆ淡ﾆ巽ﾆ誰ﾆ暖ﾆ稚ﾆ叩ﾆ辰ﾆ停ｹ窶堙ｰﾂ催ｬ窶堙ｩﾆ停堋ーﾆ檀	
-[INSTRSET "i486p"]				; 486窶堙娯督ｽ窶氾溪堙懌堙�ﾅｽg窶堋｢窶堋ｽ窶堋｢窶堙�窶堋｢窶堋､窶ｹLﾂ述
-[BITS 32]						; 32ﾆ池ﾆ鍛ﾆ暖ﾆ停堋ーﾆ檀窶廃窶堙娯ｹ@ﾅBﾅ津ｪ窶堙ｰﾂ催ｬ窶堙ｧ窶堋ｹ窶堙ｩ
-[FILE "naskfunc.nas"]			; ﾆ箪ﾂーﾆ湛ﾆ稚ﾆ叩ﾆ辰ﾆ停ｹ窶督ｼﾂ湘ｮ窶｢ﾃｱ
+[FORMAT "WCOFF"]				; オブジェクトファイルを作るモード	
+[INSTRSET "i486p"]				; 486の命令まで使いたいという記述
+[BITS 32]						; 32ビットモード用の機械語を作らせる
+[FILE "naskfunc.nas"]			; ソースファイル名情報
 
 		GLOBAL	_io_hlt, _io_cli, _io_sti, _io_stihlt
-		GLOBAL	_io_in8, _io_in16, _io_in32
+		GLOBAL	_io_in8,  _io_in16,  _io_in32
 		GLOBAL	_io_out8, _io_out16, _io_out32
 		GLOBAL	_io_load_eflags, _io_store_eflags
 
@@ -20,48 +20,58 @@ _io_hlt:	; void io_hlt(void);
 _io_cli:	; void io_cli(void);
 		CLI
 		RET
+
 _io_sti:	; void io_sti(void);
 		STI
 		RET
+
 _io_stihlt:	; void io_stihlt(void);
 		STI
 		HLT
 		RET
-_io_in8:	;void io_in8(int port);
-		MOV		EDX,[ESP+4]	;port
+
+_io_in8:	; int io_in8(int port);
+		MOV		EDX,[ESP+4]		; port
 		MOV		EAX,0
-		IN 		AL,DX
+		IN		AL,DX
 		RET
-_io_in16:	;void io_in16(int port);
-		MOV		EDX,[ESP+4]	;port
+
+_io_in16:	; int io_in16(int port);
+		MOV		EDX,[ESP+4]		; port
 		MOV		EAX,0
-		IN 		AX,DX
+		IN		AX,DX
 		RET
-_io_in32:	;void io_in32(int port);
-		MOV		EDX,[ESP+4]	;port
-		IN 		EAX,DX
+
+_io_in32:	; int io_in32(int port);
+		MOV		EDX,[ESP+4]		; port
+		IN		EAX,DX
 		RET
-_io_out8:	;void io_out8(int port,int data);
-		MOV		EDX,[ESP+4]
-		MOV		AL,[ESP+8]
-		OUT 	DX,AL
+
+_io_out8:	; void io_out8(int port, int data);
+		MOV		EDX,[ESP+4]		; port
+		MOV		AL,[ESP+8]		; data
+		OUT		DX,AL
 		RET
-_io_out16:	;void io_out16(int port,int data);
-		MOV		EDX,[ESP+4]
-		MOV		EAX,[ESP+8]
-		OUT 	DX,AX
+
+_io_out16:	; void io_out16(int port, int data);
+		MOV		EDX,[ESP+4]		; port
+		MOV		EAX,[ESP+8]		; data
+		OUT		DX,AX
 		RET
-_io_out32:	;void io_out32(int port,int data);
-		MOV		EDX,[ESP+4]
-		MOV		AL,[ESP+8]
-		OUT 	DX,EAX
+
+_io_out32:	; void io_out32(int port, int data);
+		MOV		EDX,[ESP+4]		; port
+		MOV		EAX,[ESP+8]		; data
+		OUT		DX,EAX
 		RET
-_io_load_eflags:	;int io_load_eflags(void);
-		PUSHFD		;PUSH EFLAGS
+
+_io_load_eflags:	; int io_load_eflags(void);
+		PUSHFD		; PUSH EFLAGS という意味
 		POP		EAX
 		RET
-_io_store_eflags:	;void io_store_eflags(int eflags);
+
+_io_store_eflags:	; void io_store_eflags(int eflags);
 		MOV		EAX,[ESP+4]
-		PUSH 	EAX
-		POPFD
+		PUSH	EAX
+		POPFD		; POP EFLAGS という意味
 		RET
