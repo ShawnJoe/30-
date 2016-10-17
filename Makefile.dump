@@ -22,7 +22,7 @@ COPY     = copy
 DEL      = del
 
 
-# ƒfƒtƒHƒ‹ƒg“®ì
+# åƒ¨åƒ¼åƒ…å„–åƒ©æ‘¦å¶Œ
 
 
 
@@ -31,7 +31,7 @@ default :
 
 
 
-# ƒtƒ@ƒCƒ‹¶¬‹K‘¥
+# åƒ¼å‚½åƒ€å„–æƒ—æƒ‰å©¯æ‡ƒ
 
 
 
@@ -81,7 +81,7 @@ haribote.img : ipl10.bin haribote.sys Makefile
 
 
 
-# ˆê”Ê‹K‘¥
+# å ¦æ–’å©¯æ‡ƒ
 
 
 
@@ -100,7 +100,7 @@ haribote.img : ipl10.bin haribote.sys Makefile
 
 
 
-# ƒRƒ}ƒ“ƒh
+# åƒå„…å„åƒª
 
 
 

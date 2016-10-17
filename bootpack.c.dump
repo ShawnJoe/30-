@@ -1,4 +1,4 @@
-/* bootpack‚ÌƒƒCƒ“ */
+/* bootpackåºå„Šåƒ€å„ */
 
 
 
@@ -24,7 +24,7 @@ void HariMain(void)
 
 	init_pic();
 
-	io_sti(); /* IDT/PIC‚Ì‰Šú‰»‚ªI‚í‚Á‚½‚Ì‚ÅCPU‚ÌŠ„‚è‚İ‹Ö~‚ğ‰ğœ */
+	io_sti(); /* IDT/PICåºå¼¶å©œå£”å‘å»”å‚¢å­å¨åºå±CPUåºå¦±å‚å´¬å‚’å¬›å·­å‚ªå¤å½ */
 
 
 
@@ -32,7 +32,7 @@ void HariMain(void)
 
 	init_screen8(binfo->vram, binfo->scrnx, binfo->scrny);
 
-	mx = (binfo->scrnx - 16) / 2; /* ‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚ÉÀ•WŒvZ */
+	mx = (binfo->scrnx - 16) / 2; /* å¤‹æŸºæ‹å¢°åµå´å‚å‚›å†åµåµ—æ˜—å¯å¶¼ */
 
 	my = (binfo->scrny - 28 - 16) / 2;
 
@@ -46,9 +46,9 @@ void HariMain(void)
 
 
 
-	io_out8(PIC0_IMR, 0xf9); /* PIC1‚ÆƒL[ƒ{[ƒh‚ğ‹–‰Â(11111001) */
+	io_out8(PIC0_IMR, 0xf9); /* PIC1å²åƒ‰ä¹•å„ƒä¹•åƒªå‚ªå«‹å£œ(11111001) */
 
-	io_out8(PIC1_IMR, 0xef); /* ƒ}ƒEƒX‚ğ‹–‰Â(11101111) */
+	io_out8(PIC1_IMR, 0xef); /* å„…åƒ‚åƒ—å‚ªå«‹å£œ(11101111) */
 
 
 
