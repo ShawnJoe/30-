@@ -6,20 +6,24 @@
 
 #include <stdio.h>
 
+extern struct FIFO8 keyfifo;
 
-
+extern struct FIFO8 mousefifo;
 void HariMain(void)
 
 {
 
+	extern struct FIFO8 keyfifo;
 	struct BOOTINFO *binfo = (struct BOOTINFO *) ADR_BOOTINFO;
 
-	char s[40], mcursor[256];
+	char s[40], mcursor[256],keybuf[32],mousebuf[128];
 
-	int mx, my;
+	int mx, my,i;
+	init_keyboard();
+	enable_mouse();
 
-
-
+	fifo8_init(&keyfifo,32,keybuf);
+	fifo8_init(&mousefifo,128,mousebuf);
 	init_gdtidt();
 
 	init_pic();
@@ -29,6 +33,7 @@ void HariMain(void)
 
 
 	init_palette();
+	
 
 	init_screen8(binfo->vram, binfo->scrnx, binfo->scrny);
 
@@ -54,9 +59,48 @@ void HariMain(void)
 
 	for (;;) {
 
-		io_hlt();
+		io_cli();
+		if(fifo8_status(&keyfifo) + fifo8_status(&mousefifo) == 0){
+			io_stihlt();
+		}else{
+			if(fifo8_status(&keyfifo) != 0){
+				i = fifo8_get(&keyfifo);
+				io_sti();
+				sprintf(s,"%02X",i);
+				boxfill8(binfo->vram,binfo->scrnx,COL8_008484,0,16,15,31);
+				putfonts8_asc(binfo->vram,binfo->scrnx,0,16,COL8_FFFFFF,s);
+			}else if(fifo8_status(&mousefifo)!=0){
+				i = fifo8_get(&mousefifo);
+				io_sti();
+				sprintf(s,"%02X",i);
+				boxfill8(binfo->vram,binfo->scrnx,COL8_008484,32,16,47,31);
+				putfonts8_asc(binfo->vram,binfo->scrnx,32,16,COL8_FFFFFF,s);
+			}
+		}
 
 	}
 
 }
+void wait_KBC_sendready(void){
+	for(;;){
+		if((io_in8(PORT_KEYSTA)&KEYSTA_SEND_NOTREADY) == 0){
+			break;
+		}
+	}
+	return;
+}
+void init_keyboard(void){
+	wait_KBC_sendready();
+	io_out8(PORT_KEYCMD,KEYCMD_WRITE_MODE);
+	wait_KBC_sendready();
+	io_out8(PORT_KEYDAT,KBC_MODE);
+	return;
+}
 
+void enable_mouse(void){
+	wait_KBC_sendready();
+	io_out8(PORT_KEYCMD,KEYCMD_SENDTO_MOUSE);
+	wait_KBC_sendready();
+	io_out8(PORT_KEYDAT,MOUSECMD_ENABLE);
+	return;
+}

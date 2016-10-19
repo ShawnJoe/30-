@@ -95,46 +95,46 @@
     95 0000006F 06                              		PUSH	ES
     96 00000070 1E                              		PUSH	DS
     97 00000071 60                              		PUSHAD
-    98 00000072 89 E0                           		MOV	EAX,ESP
+    98 00000072 89 E0                           		MOV		EAX,ESP
     99 00000074 50                              		PUSH	EAX
-   100 00000075 66 8C D0                        		MOV	AX,SS
-   101 00000078 8E D8                           		MOV	DS,AX
-   102 0000007A 8E C0                           		MOV	ES,AX
+   100 00000075 66 8C D0                        		MOV		AX,SS
+   101 00000078 8E D8                           		MOV		DS,AX
+   102 0000007A 8E C0                           		MOV		ES,AX
    103 0000007C E8 [00000000]                   		CALL	_inthandler21
-   104 00000081 58                              		POP	EAX
+   104 00000081 58                              		POP		EAX
    105 00000082 61                              		POPAD
-   106 00000083 1F                              		POP	DS
-   107 00000084 07                              		POP	ES
+   106 00000083 1F                              		POP		DS
+   107 00000084 07                              		POP		ES
    108 00000085 CF                              		IRETD
    109 00000086                                 
    110 00000086                                 _asm_inthandler27:
    111 00000086 06                              		PUSH	ES
    112 00000087 1E                              		PUSH	DS
    113 00000088 60                              		PUSHAD
-   114 00000089 89 E0                           		MOV	EAX,ESP
+   114 00000089 89 E0                           		MOV		EAX,ESP
    115 0000008B 50                              		PUSH	EAX
-   116 0000008C 66 8C D0                        		MOV	AX,SS
-   117 0000008F 8E D8                           		MOV	DS,AX
-   118 00000091 8E C0                           		MOV	ES,AX
+   116 0000008C 66 8C D0                        		MOV		AX,SS
+   117 0000008F 8E D8                           		MOV		DS,AX
+   118 00000091 8E C0                           		MOV		ES,AX
    119 00000093 E8 [00000000]                   		CALL	_inthandler27
-   120 00000098 58                              		POP	EAX
+   120 00000098 58                              		POP		EAX
    121 00000099 61                              		POPAD
-   122 0000009A 1F                              		POP	DS
-   123 0000009B 07                              		POP	ES
+   122 0000009A 1F                              		POP		DS
+   123 0000009B 07                              		POP		ES
    124 0000009C CF                              		IRETD
    125 0000009D                                 
    126 0000009D                                 _asm_inthandler2c:
    127 0000009D 06                              		PUSH	ES
    128 0000009E 1E                              		PUSH	DS
    129 0000009F 60                              		PUSHAD
-   130 000000A0 89 E0                           		MOV	EAX,ESP
+   130 000000A0 89 E0                           		MOV		EAX,ESP
    131 000000A2 50                              		PUSH	EAX
-   132 000000A3 66 8C D0                        		MOV	AX,SS
-   133 000000A6 8E D8                           		MOV	DS,AX
-   134 000000A8 8E C0                           		MOV	ES,AX
+   132 000000A3 66 8C D0                        		MOV		AX,SS
+   133 000000A6 8E D8                           		MOV		DS,AX
+   134 000000A8 8E C0                           		MOV		ES,AX
    135 000000AA E8 [00000000]                   		CALL	_inthandler2c
-   136 000000AF 58                              		POP	EAX
+   136 000000AF 58                              		POP		EAX
    137 000000B0 61                              		POPAD
-   138 000000B1 1F                              		POP	DS
-   139 000000B2 07                              		POP	ES
+   138 000000B1 1F                              		POP		DS
+   139 000000B2 07                              		POP		ES
    140 000000B3 CF                              		IRETD

@@ -95,46 +95,46 @@ _asm_inthandler21:
 		PUSH	ES
 		PUSH	DS
 		PUSHAD
-		MOV	EAX,ESP
+		MOV		EAX,ESP
 		PUSH	EAX
-		MOV	AX,SS
-		MOV	DS,AX
-		MOV	ES,AX
+		MOV		AX,SS
+		MOV		DS,AX
+		MOV		ES,AX
 		CALL	_inthandler21
-		POP	EAX
+		POP		EAX
 		POPAD
-		POP	DS
-		POP	ES
+		POP		DS
+		POP		ES
 		IRETD
 
 _asm_inthandler27:
 		PUSH	ES
 		PUSH	DS
 		PUSHAD
-		MOV	EAX,ESP
+		MOV		EAX,ESP
 		PUSH	EAX
-		MOV	AX,SS
-		MOV	DS,AX
-		MOV	ES,AX
+		MOV		AX,SS
+		MOV		DS,AX
+		MOV		ES,AX
 		CALL	_inthandler27
-		POP	EAX
+		POP		EAX
 		POPAD
-		POP	DS
-		POP	ES
+		POP		DS
+		POP		ES
 		IRETD
 
 _asm_inthandler2c:
 		PUSH	ES
 		PUSH	DS
 		PUSHAD
-		MOV	EAX,ESP
+		MOV		EAX,ESP
 		PUSH	EAX
-		MOV	AX,SS
-		MOV	DS,AX
-		MOV	ES,AX
+		MOV		AX,SS
+		MOV		DS,AX
+		MOV		ES,AX
 		CALL	_inthandler2c
-		POP	EAX
+		POP		EAX
 		POPAD
-		POP	DS
-		POP	ES
+		POP		DS
+		POP		ES
 		IRETD

@@ -2,15 +2,15 @@
 
 struct BOOTINFO { /* 0x0ff0-0x0fff */
 
-	char cyls; /* ƒu[ƒgƒZƒNƒ^‚Í‚Ç‚±‚Ü‚ÅƒfƒBƒXƒN‚ğ“Ç‚ñ‚¾‚Ì‚© */
+	char cyls; /* åƒ½ä¹•åƒ©åƒ™åƒ‹åƒå¼å³å™å‚‘å±åƒ¨å‚¿åƒ—åƒ‹å‚ªæ’‰å‚«å©åºå */
 
-	char leds; /* ƒu[ƒg‚ÌƒL[ƒ{[ƒh‚ÌLED‚Ìó‘Ô */
+	char leds; /* åƒ½ä¹•åƒ©å¸ªåºåƒ‰ä¹•å„ƒä¹•åƒªåºLEDåºå¿¬æ‡º */
 
-	char vmode; /* ƒrƒfƒIƒ‚[ƒh  ‰½ƒrƒbƒgƒJƒ‰[‚© */
+	char vmode; /* åƒ¹åƒ¨åƒ†å„Œä¹•åƒª  å£—åƒ¹åƒ¢åƒ©åƒ‡å„”ä¹•å */
 
 	char reserve;
 
-	short scrnx, scrny; /* ‰æ–Ê‰ğ‘œ“x */
+	short scrnx, scrny; /* å¤‹æŸºå¤æ†¸æ™ */
 
 	char *vram;
 
